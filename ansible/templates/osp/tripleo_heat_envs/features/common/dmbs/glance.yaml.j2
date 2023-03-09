@@ -1,0 +1,22 @@
+parameter_defaults:
+  GlanceShowMultipleLocations: true
+  GlanceEnabledImportMethods: web-download,copy-image
+  GlanceBackend: rbd
+  GlanceStoreDescription: '{{ config_custom_ceph_cluster_name }} rbd glance store'
+  GlanceBackendID: {{ config_custom_ceph_cluster_name }}
+{% if custom_config_action|default('deploy') == "redeploy" %}
+  GlanceMultistoreConfig:
+    dcn1:
+      GlanceBackend: rbd
+      GlanceStoreDescription: 'dcn1 rbd glance store'
+      CephClientUserName: 'openstack'
+      CephClusterName: dcn1
+{% endif %}
+{% if "dcn" in config_custom_ceph_cluster_name|default('')  %}
+  GlanceMultistoreConfig:
+    central:
+      GlanceBackend: rbd
+      GlanceStoreDescription: 'central rbd glance store'
+      CephClientUserName: 'openstack'
+      CephClusterName: central
+{% endif %}

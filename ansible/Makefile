@@ -163,6 +163,19 @@ openstack_scenario_dcn:
 	$(MAKE) osp_cell_v2_discover_hosts
 	$(MAKE) must_gather
 
+openstack_scenario_dmbs:
+	$(MAKE) patch_csv
+	$(MAKE) datavolume
+	$(MAKE) networks
+	$(MAKE) git
+	$(MAKE) ctlplane
+	$(MAKE) computes
+	$(MAKE) osp_deploy_dcn_central
+	$(MAKE) osp_deploy_dcn_1
+	$(MAKE) osp_redeploy_dcn_central
+	$(MAKE) osp_cell_v2_discover_hosts
+	$(MAKE) must_gather
+
 openstack_update:
 	$(MAKE) patch_csv
 	$(MAKE) osp_update
@@ -202,6 +215,13 @@ osp_deploy_dcn_1: hosts local-defaults.yaml
 	-e @vars/${OSP_RELEASE}.yaml \
 	-e @local-defaults.yaml \
 	osp_deploy_dcn_1.yaml
+
+osp_redeploy_dcn_central: hosts local-defaults.yaml
+	ANSIBLE_FORCE_COLOR=true ansible-playbook \
+	-i hosts \
+	-e @vars/${OSP_RELEASE}.yaml \
+	-e @local-defaults.yaml \
+	osp_redeploy_dcn_central.yaml
 
 register_overcloud_nodes: hosts local-defaults.yaml
 	ANSIBLE_FORCE_COLOR=true ansible-playbook \
