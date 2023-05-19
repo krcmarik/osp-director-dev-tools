@@ -52,6 +52,7 @@ osp_release_defaults:
     - hci
     - ssh_firewall_allow_all # Required for ceph-adm
     - BZ2170021
+    - BZ2173939
     - dcn
     - dmbs
 
