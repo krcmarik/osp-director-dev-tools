@@ -3,7 +3,7 @@ csv_version: latest-17.1
 osp_release_auto_version: 17.1-RHEL-9
 osp_release_auto_compose: passed_phase1
 
-ocp_num_workers: 2
+ocp_num_workers: 3
 ocp_num_extra_workers: 5
 ocp_ai_bmc_protocol: redfish-virtualmedia+http
 
@@ -12,7 +12,7 @@ osp_release_defaults:
   networks: ipv4_dcn
   vmset:
     Controller:
-      count: 1
+      count: 3
       cores: 6
       memory: 20
       networks:
